@@ -2,8 +2,8 @@
   "name": "dukaan360",
   "version": "1.0.0",
   "private": true,
-  "description": "Dukaan360 — Manage. Grow. Succeed. Multi-tenant business management SaaS.",
-  "packageManager": "pnpm@9.0.0",
+  "description": "Dukaan360 \u2014 Manage. Grow. Succeed. Multi-tenant business management SaaS.",
+  "packageManager": "pnpm@10.0.0",
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",

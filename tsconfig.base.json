@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
     "moduleResolution": "bundler",
     "strict": true,
@@ -10,19 +14,37 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "declaration": true,
-    "declarationMap": true,
     "sourceMap": true,
     "paths": {
-      "@dukaan360/types": ["packages/types/src/index.ts"],
-      "@dukaan360/schemas": ["packages/schemas/src/index.ts"],
-      "@dukaan360/business-logic": ["packages/business-logic/src/index.ts"],
-      "@dukaan360/ui": ["packages/ui/src/index.tsx"],
-      "@dukaan360/localization": ["packages/localization/src/index.ts"],
-      "@dukaan360/api-client": ["packages/api-client/src/index.ts"],
-      "@dukaan360/utilities": ["packages/utilities/src/index.ts"],
-      "@dukaan360/config": ["packages/config/src/index.ts"]
+      "@dukaan360/types": [
+        "packages/types/src/index.ts"
+      ],
+      "@dukaan360/schemas": [
+        "packages/schemas/src/index.ts"
+      ],
+      "@dukaan360/business-logic": [
+        "packages/business-logic/src/index.ts"
+      ],
+      "@dukaan360/ui": [
+        "packages/ui/src/index.tsx"
+      ],
+      "@dukaan360/localization": [
+        "packages/localization/src/index.ts"
+      ],
+      "@dukaan360/api-client": [
+        "packages/api-client/src/index.ts"
+      ],
+      "@dukaan360/utilities": [
+        "packages/utilities/src/index.ts"
+      ],
+      "@dukaan360/config": [
+        "packages/config/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "dist", ".next"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    ".next"
+  ]
 }

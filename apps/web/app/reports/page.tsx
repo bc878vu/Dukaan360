@@ -1,5 +1,2 @@
-import Workspace from "../../components/workspace";
-
-export default function ReportsPage() {
-  return <Workspace module="reports" />;
-}
+import ProtectedWorkspace from "../../components/protected-workspace";
+export default function ReportsPage(){return <ProtectedWorkspace module="reports"/>;}

@@ -1,5 +1,2 @@
-import Workspace from "../../components/workspace";
-
-export default function SalesPage() {
-  return <Workspace module="sales" />;
-}
+import ProtectedWorkspace from "../../components/protected-workspace";
+export default function SalesPage(){return <ProtectedWorkspace module="sales"/>;}

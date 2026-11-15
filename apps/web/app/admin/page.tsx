@@ -1,11 +1,11 @@
-export default function AdminPage() {
-  return (
-    <main className="mx-auto max-w-5xl px-6 py-10">
-      <h1 className="text-3xl font-bold text-navy">Admin</h1>
-      <p className="mt-2 text-slate-600">
-        The Admin module ships as part of the P0 release — see docs/PRD.md
-        Part 2 for its scope.
-      </p>
-    </main>
-  );
+"use client";
+import {useEffect,useState} from "react";
+import {useRouter} from "next/navigation";
+import {supabase} from "../../lib/supabase";
+export default function AdminPage(){
+ const router=useRouter();const [state,setState]=useState<"loading"|"denied"|"ready">("loading");const [stats,setStats]=useState({businesses:0,users:0,sales:0});
+ useEffect(()=>{let live=true;(async()=>{const {data:{user}}=await supabase.auth.getUser();if(!user){router.replace("/login");return;}if(user.app_metadata?.role!=="platform_admin"){if(live)setState("denied");return;}const [b,u,s]=await Promise.all([supabase.from("businesses").select("*",{count:"exact",head:true}),supabase.from("profiles").select("*",{count:"exact",head:true}),supabase.from("sales").select("*",{count:"exact",head:true})]);if(live){setStats({businesses:b.count??0,users:u.count??0,sales:s.count??0});setState("ready");}})();return()=>{live=false;};},[router]);
+ if(state==="loading")return <main className="grid min-h-screen place-items-center bg-slate-50 text-sm text-slate-500">Checking administrator access…</main>;
+ if(state==="denied")return <main className="grid min-h-screen place-items-center bg-slate-50 p-5"><section className="max-w-md rounded-2xl border border-slate-200 bg-white p-8 text-center"><div className="text-3xl">🔒</div><h1 className="mt-3 text-xl font-extrabold">Admin access restricted</h1><p className="mt-2 text-sm leading-6 text-slate-500">This console is reserved for platform administrators. Your account does not have the required platform_admin role.</p><button onClick={()=>router.replace("/dashboard")} className="mt-5 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-bold text-white">Back to my workspace</button></section></main>;
+ return <main className="min-h-screen bg-slate-50 p-5 sm:p-8"><div className="mx-auto max-w-6xl"><header className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-xs font-bold uppercase tracking-[.18em] text-emerald-700">Dukaan360 · Control centre</p><h1 className="mt-1 text-3xl font-extrabold">Platform administration</h1><p className="mt-1 text-sm text-slate-500">High-level platform health and tenant overview.</p></div><button onClick={async()=>{await supabase.auth.signOut();router.replace("/login");}} className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold">Sign out</button></header><div className="mt-8 grid gap-4 sm:grid-cols-3">{[{label:"Businesses",value:stats.businesses},{label:"Profiles",value:stats.users},{label:"Sales records",value:stats.sales}].map(x=><section key={x.label} className="rounded-2xl border border-slate-200 bg-white p-5"><p className="text-xs font-semibold text-slate-500">{x.label}</p><p className="mt-2 text-3xl font-extrabold tabular-nums">{x.value.toLocaleString()}</p></section>)}</div><section className="mt-6 rounded-2xl border border-slate-200 bg-white p-5"><h2 className="font-extrabold">Platform safeguards</h2><ul className="mt-3 space-y-2 text-sm text-slate-600"><li>• Admin access requires trusted Supabase app_metadata.role = platform_admin.</li><li>• Tenant records remain subject to database Row Level Security.</li><li>• Never expose the Supabase service-role key in browser code.</li></ul></section></div></main>;
 }

@@ -13,7 +13,19 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
   const [busy,setBusy]=useState(false);
   const [error,setError]=useState("");
   const [notice,setNotice]=useState("");
+  const [googleBusy,setGoogleBusy]=useState(false);
   const register=mode==="register";
+
+  async function signInWithGoogle() {
+    setGoogleBusy(true); setError("");
+    try {
+      const {error}=await supabase.auth.signInWithOAuth({
+        provider:"google",
+        options:{redirectTo:`${window.location.origin}/auth/callback`},
+      });
+      if(error) throw error;
+    } catch(err) { setError(err instanceof Error?err.message:"Google sign-in failed. Please try again."); setGoogleBusy(false); }
+  }
 
   async function submit(e:React.FormEvent<HTMLFormElement>) {
     e.preventDefault(); setBusy(true); setError(""); setNotice("");
@@ -44,7 +56,12 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
       <section className="p-6 sm:p-10">
         <Link href="/" className="text-sm font-extrabold text-emerald-700 md:hidden">Dukaan360</Link>
         <div className="mt-5 md:mt-8"><p className="text-xs font-bold uppercase tracking-[.18em] text-emerald-700">{register?"Get started":"Your workspace awaits"}</p><h2 className="mt-2 text-3xl font-extrabold tracking-tight text-slate-900">{register?"Create your account":"Sign in"}</h2><p className="mt-2 text-sm text-slate-500">{register?"Start with your free Dukaan360 account.":"Enter your details to continue to your workspace."}</p></div>
-        <form onSubmit={submit} className="mt-8 space-y-4">
+        <button type="button" onClick={signInWithGoogle} disabled={googleBusy||busy} className="mt-8 flex w-full items-center justify-center gap-3 rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60">
+          <svg viewBox="0 0 48 48" className="h-5 w-5" aria-hidden="true"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303C33.654,32.657,29.223,36,24,36c-6.627,0-12-5.373-12-12s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg>
+          {googleBusy?"Connecting to Google…":"Continue with Google"}
+        </button>
+        <div className="mt-6 flex items-center gap-3 text-xs font-medium text-slate-400"><span className="h-px flex-1 bg-slate-200"/><span>or continue with email</span><span className="h-px flex-1 bg-slate-200"/></div>
+        <form onSubmit={submit} className="mt-6 space-y-4">
           {register&&<label className="block text-xs font-bold text-slate-700">Full name<input required value={name} onChange={e=>setName(e.target.value)} autoComplete="name" placeholder="Your full name" className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"/></label>}
           <label className="block text-xs font-bold text-slate-700">Email address<input required type="email" value={email} onChange={e=>setEmail(e.target.value)} autoComplete="email" placeholder="you@example.com" className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"/></label>
           <label className="block text-xs font-bold text-slate-700">Password<input required type="password" minLength={8} value={password} onChange={e=>setPassword(e.target.value)} autoComplete={register?"new-password":"current-password"} placeholder="At least 8 characters" className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"/></label>

@@ -1,5 +1,2 @@
-import Workspace from "../../components/workspace";
-
-export default function SuppliersPage() {
-  return <Workspace module="suppliers" />;
-}
+import ProtectedWorkspace from "../../components/protected-workspace";
+export default function SuppliersPage(){return <ProtectedWorkspace module="suppliers"/>;}

@@ -1,6 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { supabase } from "../lib/supabase";
 import Link from "next/link";
 
 type ModuleKey = "dashboard" | "sales" | "inventory" | "products" | "purchases" | "customers" | "suppliers" | "expenses" | "reports" | "settings" | "admin";
@@ -76,6 +78,7 @@ const INITIAL: Record<ModuleKey, RecordRow[]> = {
 const money = (n: number) => "Rs " + n.toLocaleString("en-PK");
 
 export default function Workspace({ module }: { module: ModuleKey }) {
+  const router = useRouter();
   const [rows, setRows] = useState(INITIAL[module]);
   const [query, setQuery] = useState("");
   const [showAdd, setShowAdd] = useState(false);
@@ -113,7 +116,7 @@ export default function Workspace({ module }: { module: ModuleKey }) {
       <div className="min-h-screen lg:pl-[248px]">
         <header className="sticky top-0 z-20 flex h-[68px] items-center justify-between border-b border-slate-200 bg-white/90 px-4 backdrop-blur sm:px-7">
           <div className="flex items-center gap-3"><button onClick={() => setMobileNav(v => !v)} className="rounded-lg border border-slate-200 px-2.5 py-1.5 text-lg lg:hidden" aria-label="Toggle menu">☰</button><div><p className="text-[11px] font-medium text-slate-400">My Business <span className="px-1">/</span> {TITLES[module]}</p><h1 className="text-base font-extrabold tracking-tight sm:text-lg">{TITLES[module]}</h1></div></div>
-          <div className="flex items-center gap-2 sm:gap-3"><span className="hidden rounded-full bg-amber-50 px-3 py-1.5 text-[11px] font-bold text-amber-700 sm:inline-flex">DEMO DATA</span><button aria-label="Notifications" className="relative grid h-9 w-9 place-items-center rounded-xl border border-slate-200 text-slate-600">♧<i className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-rose-500"/></button><span className="grid h-9 w-9 place-items-center rounded-full bg-emerald-100 text-xs font-extrabold text-emerald-800">AA</span></div>
+          <div className="flex items-center gap-2 sm:gap-3"><span className="hidden rounded-full bg-amber-50 px-3 py-1.5 text-[11px] font-bold text-amber-700 sm:inline-flex">DEMO DATA</span><button aria-label="Notifications" className="relative grid h-9 w-9 place-items-center rounded-xl border border-slate-200 text-slate-600">♧<i className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-rose-500"/></button><span className="grid h-9 w-9 place-items-center rounded-full bg-emerald-100 text-xs font-extrabold text-emerald-800">AA</span><button onClick={async()=>{await supabase.auth.signOut();router.replace("/login");router.refresh();}} className="rounded-lg border border-slate-200 px-2.5 py-2 text-[11px] font-bold text-slate-600 hover:bg-slate-50">Sign out</button></div>
         </header>
         <main className="mx-auto max-w-[1440px] px-4 py-6 sm:px-7 sm:py-8">
           <div className="mb-6 flex flex-col justify-between gap-3 sm:flex-row sm:items-end"><div><p className="text-sm text-slate-500">{module === "dashboard" ? "Here’s what’s happening with your business today." : "Manage your business records in one clear workspace."}</p><p className="mt-1 text-xs text-slate-400">Sunday, 15 November 2026 · Pakistan Standard Time</p></div><div className="flex flex-wrap gap-2"><button onClick={() => setShowAdd(true)} className="rounded-xl bg-emerald-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-emerald-700">＋ {addLabel}</button><button className="rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-xs font-bold text-slate-600 hover:bg-slate-50">Export ↓</button></div></div>

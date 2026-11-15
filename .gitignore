@@ -1,12 +1,37 @@
-node_modules
-.pnpm-store
-.next
-.expo
-dist
-build
-coverage
+# Dependencies
+node_modules/
+.pnp
+.pnp.*
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+*.tsbuildinfo
+
+# Env and secrets — NEVER commit
 .env
 .env.*
 !.env.example
-*.log
+
+# Mobile / Expo
+.expo/
+android/
+ios/
+*.jks
+*.keystore
+
+# OS / editor
 .DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Turborepo
+.turbo/
+
+# Misc
+*.log
+coverage/

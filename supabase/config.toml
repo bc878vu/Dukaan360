@@ -1,0 +1,27 @@
+# Supabase CLI config — Dukaan360 (new dedicated project).
+# Link with: supabase link --project-ref <your-project-ref>
+project_id = "dukaan360"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+major_version = 15
+
+[auth]
+enabled = true
+port = 9999
+# Email sign-in enabled; Google provider is optional (Module A).
+enable_signup = true
+
+[storage]
+enabled = true
+file_size_limit = "50MiB"
+
+[realtime]
+enabled = true

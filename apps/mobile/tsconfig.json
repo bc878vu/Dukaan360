@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "target": "ES2022",
+    "jsx": "react-native",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "paths": {
+      "@dukaan360/*": ["../../packages/*/src/index.ts"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}

@@ -1,1 +1,28 @@
-{"expo":{"name":"Dukaan360","slug":"dukaan360","scheme":"dukaan360","version":"0.1.0","orientation":"portrait","userInterfaceStyle":"automatic","newArchEnabled":true,"ios":{"supportsTablet":true},"android":{"package":"com.dukaan360.app"},"plugins":["expo-router"]}}
+{
+  "expo": {
+    "name": "Dukaan360",
+    "slug": "dukaan360",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "dukaan360",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.dukaan360.app"
+    },
+    "android": {
+      "package": "com.dukaan360.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#059669"
+      }
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": ["expo-router", "expo-sqlite", "expo-camera", "expo-notifications"],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

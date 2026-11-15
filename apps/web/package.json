@@ -1,1 +1,41 @@
-{"name":"@dukaan360/web","version":"0.1.0","private":true,"scripts":{"dev":"next dev","build":"next build","start":"next start","lint":"eslint .","typecheck":"tsc --noEmit"},"dependencies":{"next":"^15.1.0","react":"^19.0.0","react-dom":"^19.0.0"},"devDependencies":{"@types/node":"^22.10.2","@types/react":"^19.0.2","@types/react-dom":"^19.0.2","typescript":"^5.7.2","eslint":"^9.0.0"}}
+{
+  "name": "@dukaan360/web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dukaan360 web app — Next.js dashboard, POS, inventory and reports.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@dukaan360/api-client": "workspace:*",
+    "@dukaan360/business-logic": "workspace:*",
+    "@dukaan360/config": "workspace:*",
+    "@dukaan360/localization": "workspace:*",
+    "@dukaan360/schemas": "workspace:*",
+    "@dukaan360/types": "workspace:*",
+    "@dukaan360/ui": "workspace:*",
+    "@dukaan360/utilities": "workspace:*",
+    "@supabase/ssr": "^0.5.0",
+    "@supabase/supabase-js": "^2.45.0",
+    "next": "^14.2.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "recharts": "^2.12.0",
+    "zod": "^3.23.0",
+    "zustand": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.6.0"
+  }
+}

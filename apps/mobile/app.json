@@ -1,0 +1,1 @@
+{"expo":{"name":"Dukaan360","slug":"dukaan360","scheme":"dukaan360","version":"0.1.0","orientation":"portrait","userInterfaceStyle":"automatic","newArchEnabled":true,"ios":{"supportsTablet":true},"android":{"package":"com.dukaan360.app"},"plugins":["expo-router"]}}

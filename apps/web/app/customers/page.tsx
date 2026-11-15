@@ -1,5 +1,2 @@
-import Workspace from "../../components/workspace";
-
-export default function CustomersPage() {
-  return <Workspace module="customers" />;
-}
+import ProtectedWorkspace from "../../components/protected-workspace";
+export default function CustomersPage(){return <ProtectedWorkspace module="customers"/>;}
